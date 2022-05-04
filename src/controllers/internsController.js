@@ -16,7 +16,7 @@ const addInterns = async (req, res) => {
 
     if (validString.test(data.name)) return res.status(400).send({ status: false, message: "Name should be a valid name and should not have numbers in it" });
     if (!validEmail.validate(data.email)) return res.status(400).send({ status: false, message: "Enter a valid email id" });
-    if(!validMobileNum.test(data.mobile)) return res.status(400).send({ status: false, message: "Enter a valid mobile number and it should be of 10 digits" });
+    if (!validMobileNum.test(data.mobile)) return res.status(400).send({ status: false, message: "Enter a valid mobile number and it should be of 10 digits" });
     let getCllgData = await College.findById(data.collegeId);
     if (!(validObjectId(data.collegeId) && getCllgData)) return res.status(400).send({ status: false, message: "Enter a valid college id" });
 
