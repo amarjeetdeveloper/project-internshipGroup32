@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb+srv://Uranium-Batch:aruSjkdGdfhc9MRK@functionup.eel5r.mongodb.net/groupXDatabase?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://Uranium-Batch:aruSjkdGdfhc9MRK@functionup.eel5r.mongodb.net/group32Database?retryWrites=true&w=majority', {
     useNewUrlParser: true,
 })
 .then(() => { console.log('Connected to MongoDB') })
