@@ -30,12 +30,12 @@ const collegeDetails = async (req, res) => {
         if (!collegeName) return res.status(400).send({ status: false, message: "Enter College Name" });
         if (validString.test(collegeName)) return res.status(400).send({ status: false, message: "Enter a valid college name" })
 
-        let getCollegeData = await collegeModel.findOne({ name: collegeName }).select({ name: 1, fullName: 1, logoLink: 1 });   
+        let getCollegeData = await collegeModel.findOne({ name: collegeName, isDeleted: false }).select({ name: 1, fullName: 1, logoLink: 1 });   
         if(!getCollegeData) return res.status(404).send({ status: false, message: "College not found! check the name and try again" });
 
         let {...data} = getCollegeData._doc
 
-        let getInterns = await Interns.find({ collegeId: data._id }).select({ name: 1, email: 1, mobile: 1 });
+        let getInterns = await Interns.find({ collegeId: data._id, isDeleted: false }).select({ name: 1, email: 1, mobile: 1 });
         if(!getInterns) return res.status(404).send({ status: false, message: "No interns found" });
 
         delete(data._id);
