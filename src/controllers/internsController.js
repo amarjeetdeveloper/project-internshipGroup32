@@ -1,5 +1,6 @@
 const Interns = require('../model/internsModel');
-const { validString, validObjectId } = require('../utils/validation');
+const College = require('../model/CollegeModel');
+const { validString, validObjectId, validMobileNum } = require('../utils/validation');
 const validEmail = require('email-validator');
 
 const addInterns = async (req, res) => {
@@ -15,9 +16,9 @@ const addInterns = async (req, res) => {
 
     if (validString.test(data.name)) return res.status(400).send({ status: false, message: "Name should be a valid name and should not have numbers in it" });
     if (!validEmail.validate(data.email)) return res.status(400).send({ status: false, message: "Enter a valid email id" });
-    if (!validString.test(data.mobile)) return res.status(400).send({ status: false, message: "Enter a valid mobile number" });
-    if (data.mobile.length !== 10) return res.status(400).send({ status: false, message: "Mobile number should be of 10 digits excluding (+91)" });
-    if (!validObjectId(data.collegeId)) return res.status(400).send({ status: false, message: "Enter a valid college id" });
+    if(!validMobileNum.test(data.mobile)) return res.status(400).send({ status: false, message: "Enter a valid mobile number and it should be of 10 digits" });
+    let getCllgData = await College.findById(data.collegeId);
+    if (!(validObjectId(data.collegeId) && getCllgData)) return res.status(400).send({ status: false, message: "Enter a valid college id" });
 
     let getUniqueValues = await Interns.findOne({ $or: [{ email: data.email }, { mobile: data.mobile }] });
     if (getUniqueValues) return res.status(400).send({ status: false, message: "Email or Mobile number already exist" })
