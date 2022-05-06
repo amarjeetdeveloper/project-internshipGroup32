@@ -10,7 +10,7 @@ const createCollege = async (req, res) => {
         if (!data.name) return res.status(400).send({ status: false, message: "name is Required" })
         if (!data.fullName) return res.status(400).send({ status: false, message: "fullName is Required" })
         if (!data.logoLink) return res.status(400).send({ status: false, message: "logoLink is Required" })
-"1233"
+
         if (validString.test(data.name)) return res.status(400).send({ status: false, message: "please provide valid name" })
         if (validString.test(data.fullName)) return res.status(400).send({ status: false, message: "please provide valid fullName" })
         if (!validUrl.test(data.logoLink)) return res.status(400).send({ status: false, message: "please provide valid logoLink" })
